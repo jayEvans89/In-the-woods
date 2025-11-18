@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://lce6j5wep832"]
+
+[ext_resource type="PackedScene" uid="uid://cqumunkk5lk01" path="res://world_environment.tscn" id="1_c6gwx"]
+[ext_resource type="PackedScene" uid="uid://pii88koi1gc5" path="res://player-controller.tscn" id="2_2dftf"]
+[ext_resource type="Shader" uid="uid://c1cg4goy5as1" path="res://shaders/grid.gdshader" id="2_bcbcq"]
+[ext_resource type="Texture2D" uid="uid://b7w3cyy3ijc57" path="res://textures/Grid Texture.jpg" id="3_js7pq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_js7pq"]
+render_priority = 0
+shader = ExtResource("2_bcbcq")
+shader_parameter/albedo = Color(0.3789271, 0.6987413, 0.38087302, 1)
+shader_parameter/texture_albedo = ExtResource("3_js7pq")
+shader_parameter/point_size = 1.0000000475
+shader_parameter/roughness = 0.50000002375
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_blend_sharpness = 1.0
+shader_parameter/uv1_scale = Vector3(0.5, 0.5, 0.5)
+shader_parameter/uv1_offset = Vector3(0.5, 0.5, 0.5)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cmany"]
+material = SubResource("ShaderMaterial_js7pq")
+size = Vector3(20, 1, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c6gwx"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eu7l1"]
+render_priority = 0
+shader = ExtResource("2_bcbcq")
+shader_parameter/albedo = Color(0.44313726, 0.49803922, 0.99607843, 1)
+shader_parameter/texture_albedo = ExtResource("3_js7pq")
+shader_parameter/point_size = 1.0000000475
+shader_parameter/roughness = 0.50000002375
+shader_parameter/metallic_texture_channel = Vector4(0, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_blend_sharpness = 1.0
+shader_parameter/uv1_scale = Vector3(0.5, 0.5, 0.5)
+shader_parameter/uv1_offset = Vector3(0.5, 0.5, 0.5)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_js7pq"]
+material = SubResource("ShaderMaterial_eu7l1")
+size = Vector3(5, 5, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eu7l1"]
+size = Vector3(5, 5, 5)
+
+[node name="World" type="Node3D"]
+
+[node name="WorldEnvironment" parent="." instance=ExtResource("1_c6gwx")]
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("BoxMesh_cmany")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("BoxShape3D_c6gwx")
+
+[node name="Box" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9787903, 2, -9.5151615)
+mesh = SubResource("BoxMesh_js7pq")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Box"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box/StaticBody3D"]
+shape = SubResource("BoxShape3D_eu7l1")
+
+[node name="player-controller" parent="." instance=ExtResource("2_2dftf")]
