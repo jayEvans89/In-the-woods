@@ -9,7 +9,7 @@ namespace State
     /// <summary>
     /// Reference to the PlayerController node.
     /// </summary>
-    public PlayerController Player;
+    public Player.PlayerController Player;
 
     /// <summary>
     /// Reference to the AnimationPlayer on the player for handling animations.
@@ -24,7 +24,7 @@ namespace State
 
     private void OnParentReady()
     {
-      Player = Owner as PlayerController;
+      Player = Owner as Player.PlayerController;
       Animation = Player.AnimationPlayer;
     }
   }

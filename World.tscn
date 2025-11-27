@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://lce6j5wep832"]
+[gd_scene load_steps=13 format=3 uid="uid://lce6j5wep832"]
 
 [ext_resource type="PackedScene" uid="uid://cqumunkk5lk01" path="res://world_environment.tscn" id="1_c6gwx"]
 [ext_resource type="PackedScene" uid="uid://pii88koi1gc5" path="res://player-controller.tscn" id="2_2dftf"]
@@ -29,6 +29,7 @@ size = Vector3(20, 1, 20)
 size = Vector3(100, 1, 100)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eu7l1"]
+resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_bcbcq")
 shader_parameter/albedo = Color(0.44313726, 0.49803922, 0.99607843, 1)
@@ -45,18 +46,28 @@ shader_parameter/uv2_scale = Vector3(1, 1, 1)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
 
 [sub_resource type="BoxMesh" id="BoxMesh_js7pq"]
+resource_local_to_scene = true
 material = SubResource("ShaderMaterial_eu7l1")
 size = Vector3(5, 5, 5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_eu7l1"]
+resource_local_to_scene = true
 size = Vector3(5, 5, 5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_eu7l1"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_eu7l1")
+size = Vector3(5, 0.5, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_js7pq"]
+resource_local_to_scene = true
+size = Vector3(5, 0.5, 5)
 
 [node name="World" type="Node3D"]
 
 [node name="WorldEnvironment" parent="." instance=ExtResource("1_c6gwx")]
 
 [node name="Floor" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 mesh = SubResource("BoxMesh_cmany")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
@@ -65,7 +76,7 @@ mesh = SubResource("BoxMesh_cmany")
 shape = SubResource("BoxShape3D_c6gwx")
 
 [node name="Box" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9787903, 2, -9.5151615)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.979, 3, -9.515)
 mesh = SubResource("BoxMesh_js7pq")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Box"]
@@ -73,4 +84,14 @@ mesh = SubResource("BoxMesh_js7pq")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Box/StaticBody3D"]
 shape = SubResource("BoxShape3D_eu7l1")
 
+[node name="Box2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.021, 2.5, -9.515)
+mesh = SubResource("BoxMesh_eu7l1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Box2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box2/StaticBody3D"]
+shape = SubResource("BoxShape3D_js7pq")
+
 [node name="player-controller" parent="." instance=ExtResource("2_2dftf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

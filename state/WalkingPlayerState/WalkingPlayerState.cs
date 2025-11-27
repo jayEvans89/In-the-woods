@@ -4,6 +4,7 @@ using System;
 
 namespace State
 {
+	[GlobalClass, Icon("res://state/WalkingPlayerState/WalkingPlayerState.svg")]
 	public partial class WalkingPlayerState : PlayerMovementState
 	{
 		[Export]
@@ -20,6 +21,11 @@ namespace State
 			Globals.Debug.AddProperty("Movement Speed", Speed.ToString(), 1);
 		}
 
+		public override void Exit()
+		{
+			Animation.SpeedScale = 1.0f;
+		}
+
 		public override void Update(float delta)
 		{
 			Player.UpdateGravity(delta);
@@ -31,6 +37,11 @@ namespace State
 			if (@Input.IsActionPressed("sprint") && Player.IsOnFloor())
 			{
 				EmitSignal(SignalName.Transition, "SprintingPlayerState");
+			}
+
+			if (Input.IsActionJustPressed("crouch") && Player.IsOnFloor())
+			{
+				EmitSignal(SignalName.Transition, "CrouchingPlayerState");
 			}
 
 			if (Input.IsActionJustPressed("jump") && Player.IsOnFloor())

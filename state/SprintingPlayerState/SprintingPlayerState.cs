@@ -3,6 +3,7 @@ using System;
 
 namespace State
 {
+	[GlobalClass, Icon("res://state/SprintingPlayerState/SprintingPlayerState.svg")]
 	public partial class SprintingPlayerState : PlayerMovementState
 	{
 		[Export]
@@ -18,6 +19,11 @@ namespace State
 		{
 			Animation.Play("Sprinting", -1.0, 1.0f);
 			Globals.Debug.AddProperty("Movement Speed", Speed.ToString(), 1);
+		}
+
+		public override void Exit()
+		{
+			Animation.SpeedScale = 1.0f;
 		}
 
 		public override void Update(float delta)

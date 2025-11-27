@@ -3,6 +3,7 @@ using System;
 
 namespace State
 {
+	[GlobalClass, Icon("res://state/JumpingPlayerState/JumpingPlayerState.svg")]
 	public partial class JumpingPlayerState : PlayerMovementState
 	{
 		[Export]
@@ -25,7 +26,7 @@ namespace State
 			var velocity = Player.Velocity;
 			velocity.Y = JumpVelocity;
 			Player.Velocity = velocity;
-			Animation.Pause();
+			Animation.Play("JumpStart");
 		}
 
     public override void Update(float delta)

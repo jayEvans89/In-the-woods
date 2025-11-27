@@ -4,6 +4,7 @@ using System;
 
 namespace State
 {
+	[GlobalClass, Icon("res://state/IdlePlayerState/IdlePlayerState.svg")]
 	public partial class IdlePlayerState : PlayerMovementState
 	{
 		public override void Enter()
@@ -17,6 +18,11 @@ namespace State
 			Player.UpdateGravity(delta);
 			Player.UpdateInput(1, 1, 1);
 			Player.UpdateVelocity();
+
+			if (Input.IsActionJustPressed("crouch") && Player.IsOnFloor())
+			{
+				EmitSignal(SignalName.Transition, "CrouchingPlayerState");
+			}
 
 			if (Player.Velocity.Length() > 0.0f && Player.IsOnFloor())
 			{

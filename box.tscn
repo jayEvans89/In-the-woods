@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://sk7uinw831kw"]
+
+[ext_resource type="Shader" uid="uid://c1cg4goy5as1" path="res://shaders/grid.gdshader" id="1_oq5cr"]
+[ext_resource type="Texture2D" uid="uid://b7w3cyy3ijc57" path="res://textures/Grid Texture.jpg" id="2_bqn3j"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eu7l1"]
+render_priority = 0
+shader = ExtResource("1_oq5cr")
+shader_parameter/albedo = Color(0.44313726, 0.49803922, 0.99607843, 1)
+shader_parameter/texture_albedo = ExtResource("2_bqn3j")
+shader_parameter/point_size = 1.0000000475
+shader_parameter/roughness = 0.50000002375
+shader_parameter/metallic_texture_channel = Vector4(0, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_blend_sharpness = 1.0
+shader_parameter/uv1_scale = Vector3(0.5, 0.5, 0.5)
+shader_parameter/uv1_offset = Vector3(0.5, 0.5, 0.5)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_js7pq"]
+material = SubResource("ShaderMaterial_eu7l1")
+size = Vector3(5, 5, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eu7l1"]
+size = Vector3(5, 5, 5)
+
+[node name="Box" type="MeshInstance3D"]
+mesh = SubResource("BoxMesh_js7pq")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_eu7l1")
